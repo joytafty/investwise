@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+<div class="nav-collapse">
+    <ul class="nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="/predict">Current Projection</a></li>
+        <li><a href="/board">Leaderboard</a></li>
+        <!--<li><a href="/job">Job</a></li>-->
+        <li class='active'><a href="/about">About</a></li>
+    </ul>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row" style="margin-top:20px">
+    <div class="span3">
+        <div class="well sidebar-nav">
+            <img src="/static/img/me.jpg" alt="Wei Zhang" class="border" width="200" height="500"/>
+            <p></p>
+        </div>
+    </div>
+    <div class="span9">
+        <h2>Joy Rimchala</h2>
+        <h3>An advocate for data</h3>
+        <p>
+            I'm Joy Rimchala, a PhD with background in data driven probabilistic model and passion for turning data into insights and actions. I have developed my expertise during my fellowship at InsightDataScience and my graduate study in Biological Engineering from MIT, building models to predict cells' aggressiveness or invasiveness based on their shapes and movement patterns.
+        </p>
+        <p>
+            <a href="/">InvestWiser</a> is my main project during my fellowship at <a href="http://insightdatascience.com/">InsightDataScience</a> in 2014.
+            I used Random Forest classification and Deep Learning to predict startup outcome (IPO/acquired) based on various sources of data.
+        </p>
+
+        <p>
+            Interested in the source codes or want to contribute? 
+            <a href='https://github.com/joytafty/' target='_blank'>Check it out on Github!</a>
+        </p>
+        <p>
+            <a href="/slides">Slides</a>
+        </p>
+    </div>
+</div>
+</div>
+{% endblock %}
+

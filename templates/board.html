@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+<div class="nav-collapse">
+    <ul class="nav">
+        <li><a href="/">Home</a></li>
+        <li><a href="/predict">Current Projection</a></li>
+        <li class="active"><a href="/board">Leaderboard</a></li>
+        <!--<li><a href="/job">Job</a></li>-->
+        <li><a href="/about">About</a></li>
+    </ul>
+</div>
+{% endblock %}
+
+{% block content %}
+<ul class="nav nav-tabs" style="margin-top:20px">
+    <li class="active">
+        <a href="#fame-board" data-toggle="tab">Fame Leaderboard</a>
+    </li>
+    <li>
+        <a href="#trend-board" data-toggle="tab">Trend Leaderboard</a>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane active" id="fame-board">
+        <div class="hero-uni faq">
+            <div class="well">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Startup</th>
+                            <th>Success Probability</th>
+                            <th>Current Status</th>
+                            <th>Market</th>
+                            <th>Predicted Valuation</th>
+                            <th>Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in inds %}
+                            <tr>
+                                <td> {{ name[i] }} </td>
+                                <td> {{ score[i] }} </td>
+                                <td> {{ status[i] }} </td>
+                                <td> {{ market[i] }} </td>
+                                <td> {{ valuation[i] }} </td>
+                                <td> {{ location[i] }} </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div style="margin-bottom:10px;">
+                <a class="btn btn-large btn-block btn-primary" href="/all">See All</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="tab-pane" id="trend-board">
+        <div class="hero-uni faq">
+            <div class="well">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Startup</th>
+                            <th>Success Probability</th>
+                            <th>Current Status</th>
+                            <th>Google Trends Volume</th>
+                            <th>Twitter Followers</th>
+                            <th>Facebook Likes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div style="margin-bottom:10px;">
+                <a class="btn btn-large btn-block btn-primary" href="/all">See All</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+

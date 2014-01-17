@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+<div class="nav-collapse">
+    <ul class="nav">
+        <li><a href="/">Home</a></li>
+        <li class="active"><a href="/predict">Current Projection</a></li>
+        <li><a href="/board">Leaderboard</a></li>
+        <!--<li><a href="/job">Job</a></li>-->
+        <li><a href="/about">About</a></li>
+    </ul>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="hero-unit faq" style='margin-top:10px'>
+    <div style="text-align:center">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="alert alert-info">
+            <button class="close" data-dismiss="alert">×</button>
+            <ul class=flashes>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    {% endwith %}
+    </div>
+
+  <div class="hero-unit">
+     <form id="inputForm" style="text-align:center;" method="post" action="{{ url_for('analyze') }}">
+      <div class="control-group">
+        <h2>See Startups </h2>
+        <p>company name like Heroku, Airbnb, RethinkDB etc.</p>
+        <div class="controls">
+          <div class="input-append">
+            
+          <input type="text" autocomplete="off" placeholder="Type Company ..." id="crunch-id" name="crunch-id"
+              data-provide="typeahead" data-items="4"
+              data-source=''>
+
+            <select class="selectpicker" title="market sector" data-width="28px" id="choices">
+              <option>web, mobile, software, messaging</option>
+              <option>real estate</option>
+              <option>enterprise</option>
+              <option>fashion</option>
+              <option>travel</option>
+              <option>advertising, PR</option>
+              <option>nonprofile</option>
+              <option>ecommerce</option>
+              <option>search, analytics</option>
+              <option>social</option>
+              <option>photo, video, music</option>
+              <option>education</option>
+              <option>health</option>
+              <option>finance</option>
+              <option>hardware</option>
+              <option>game_video</option>
+              <option>hospitality</option>
+              <option>local</option>
+              <option>legal</option>
+            </select>
+
+            <a type="" class="btn btn-success" onclick="formSubmit()">
+                <i class="icon-search icon-white"></i>
+            </a>
+
+          </div>
+        </div>
+      </div>
+    </form>
+
+<!--         <form id="predict-form" method="post" action="{{ url_for('analyze') }}">
+            <h2>Rank Predictor</h2>
+            <p>company name like Heroku, Airbnb, RethinkDB etc.</p>
+            <input type="text" autocomplete="off" placeholder="Type Company ..." id="crunch-id" name="crunch-id"
+                data-provide="typeahead" data-items="4"
+                data-source='{{comp_json}}'>
+            <a type="" class="search_button btn btn-success" onclick="formSubmit()">
+                <i class="icon-search icon-white"></i>
+            </a>
+        </form> -->
+    <!-- </div> -->
+  </div>
+
+<div class="row">
+    <div class="span20">
+        <div>
+            {% for record in records %}
+            <a href="#"><img src="{{record.logo_url}}" width="80" height="80"></a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div style="margin-bottom:50px"></div>
+
+{% endblock %}
+
+{% block endscript %}
+<script>
+    function formSubmit()
+    {
+        document.getElementById("predict-form").submit();
+        return false;
+    }
+</script>
+{% endblock %}
+
