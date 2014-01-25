@@ -5,7 +5,7 @@ import MySQLdb as mdb
 from pandas import DataFrame
 # import pyodbc
 import pandas.io.sql as psql
-
+import sys, urlparse
 from models import *
 import os
 import re
@@ -17,8 +17,12 @@ import pickle
 import json
 from datetime import date, timedelta
 import time
+# Register database schemes in URLs.
+urlparse.uses_netloc.append('mysql')
+try:
+    if 'CLEARDB_DATABASE_URL' not in locals():
+        DATABASES = {}
 
-import sys
 parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, parentdir)
 
@@ -277,13 +281,11 @@ def predict():
     comp_json = json.loads(json_data)
     return render_template("predict.html", comp_json=comp_json)
 
-@app.route('/analyze/', methods=['GET', 'POST'])
+@app.route('/analyze/', methods=['POST'])
 def analyze():
-    record = request.args.get('q',None)
     fp = os.path.join(APP_STATIC, 'com.json')
     json_data = open(fp).read()
     comp_json = json.loads(json_data)
-    print record
 
 #     records = db.session.query(al_companies).filter(
 #             ALCompany.logo_url != None).limit(22)
@@ -340,8 +342,8 @@ def analyze():
     
 #     com_record = db.session.query(cb_companies).filter(
 #             CBCompany.crunch_id==crunch_id).first()
-    return render_template("analyze.html", prob=0.4, \
-            company=record, comp_json='comp_json', com_record='', valuation='')
+#     return render_template("analyze.html", prob=prob, \
+#             company=record, comp_json=comp_json, com_record=com_record, valuation=valuation)
 
 # @app.route('/job')
 # def job():
@@ -365,7 +367,7 @@ def analyze():
 #     if resp.status == 200:
 #         profile = resp.data
 
-    # return render_template('recommend.html', Profile=comp)
+#     return render_template('recommend.html', Profile=profile)
 
 if __name__ == "__main__":
     # if socket.gethostbyname(socket.gethostname()).startswith('192'):

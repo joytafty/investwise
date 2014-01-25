@@ -4,7 +4,7 @@
   <div class="nav-collapse">
     <ul class="nav">
       <li class="active"><a href="/">Welcome</a></li>
-      <li><a href="/predict">Current Projection</a></li>
+      <li><a href="{{ url_for('analyze') }}" method="post" name="q">Current Projection</a></li>
       <li><a href="/board">Leader board</a></li>
       <!--<li><a href="/job">Job</a></li>-->
       <li><a href="/about">About</a></li>
@@ -26,7 +26,7 @@
 {% block content %}
 
 <div class="hero-unit">
-    <form id="inputForm" style="text-align:center;" method="post" action="{{ url_for('analyze') }}">
+    <form id="inputForm" style="text-align:center;" method="post" action="{{ url_for('analyze') }}" name="q">
       <div class="control-group">
         <h2>See Startups </h2>
         <p>company name like Heroku, Airbnb, RethinkDB etc.</p>
@@ -36,11 +36,12 @@
           <input type="text" autocomplete="off" placeholder="Type Company ..." id="crunch-id" name="crunch-id"
               data-provide="typeahead" data-items="4"
               data-source=''>
-            <a href="/predict" type="" class="btn btn-success" onclick="formSubmit()" >
+            <button type="submit" class="btn btn-inverse"><i class="icon-search icon-white"></i></button>
+<!--             <a href="/predict" type="" class="btn btn-success" onclick="formSubmit()" >
                 <i class="icon-search icon-white"></i>
             </a>
-
-            <select class="selectpicker" title="market sector" data-width="28px" id="choices">
+ -->
+            <select class="selectpicker" title="market sector" data-width="28px" id="choices"  type="submit">
               <option>web, mobile, software, messaging</option>
               <option>real estate</option>
               <option>enterprise</option>
@@ -62,7 +63,7 @@
               <option>legal</option>
             </select>
 
-            <a href="/predict" type="" class="btn btn-success" onclick="formSubmit()" >
+            <a href="/predict" type="submit" class="btn btn-success" method="post" action="{{ url_for('analyze') }}" name="q">
                 Submit
             </a>
 

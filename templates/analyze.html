@@ -3,8 +3,8 @@
 {% block navbar %}
 <div class="nav-collapse">
     <ul class="nav">
-        <li><a href="/">Home</a></li>
-        <li class="active"><a href="/predict">Predict</a></li>
+        <li><a href="/">Welcome</a></li>
+        <li class="active"><a href="{{ url_for('analyze')}}">Current Projection</a></li>
         <li><a href="/board">Leaderboard</a></li>
         <!--<li><a href="/job">Job</a></li>-->
         <li><a href="/about">About</a></li>
@@ -13,18 +13,52 @@
 {% endblock %}
 
 {% block content %}
-<div class="hero-unit faq">
-    <div class="ac">
-        <form id="predict-form" method="post" action="{{ url_for('analyze') }}">
-            <h2>Startup Outcome Prediction</h2>
-            <p>Input company, for example: hulu, decide.com, Nambii, etc.</p>
-            <input type="text" autocomplete="off" placeholder="Type Company ..." id="crunch-id" 
-                name="crunch-id" data-provide="typeahead" data-items="4" data-source='{{comp_json}}'>
-            <a type="" class="search_button btn btn-success" onclick="formSubmit()">
+<div class="hero-unit">
+   <form id="inputForm" style="text-align:center;" method="post" action="{{ url_for('analyze') }}" name="q">
+      <div class="control-group">
+        <h2>See Startups </h2>
+        <p>company name like Heroku, Airbnb, RethinkDB etc.</p>
+        <div class="controls">
+          <div class="input-append">
+            
+          <input type="text" autocomplete="off" placeholder="Type Company ..." id="crunch-id" name="crunch-id"
+              data-provide="typeahead" data-items="4"
+              data-source=''>
+            <button type="submit" class="btn btn-inverse"><i class="icon-search icon-white"></i></button>
+<!--             <a href="/predict" type="" class="btn btn-success" onclick="formSubmit()" >
                 <i class="icon-search icon-white"></i>
             </a>
-        </form>
-    </div>
+ -->
+            <select class="selectpicker" title="market sector" data-width="28px" id="choices">
+              <option>web, mobile, software, messaging</option>
+              <option>real estate</option>
+              <option>enterprise</option>
+              <option>fashion</option>
+              <option>travel</option>
+              <option>advertising, PR</option>
+              <option>nonprofile</option>
+              <option>ecommerce</option>
+              <option>search, analytics</option>
+              <option>social</option>
+              <option>photo, video, music</option>
+              <option>education</option>
+              <option>health</option>
+              <option>finance</option>
+              <option>hardware</option>
+              <option>game_video</option>
+              <option>hospitality</option>
+              <option>local</option>
+              <option>legal</option>
+            </select>
+
+            <a href="/predict" type="" class="btn btn-success" onclick="formSubmit()" >
+                Submit
+            </a>
+
+          </div>
+        </div>
+      </div>
+    </form>
 </div>
 
 <hr />
@@ -33,11 +67,13 @@
     <div class="well">
         <h2 class="muted">{{ company.name }}</h2>
         <p>
-            <span class="label">{{ company.category }}</span>
+            <span class="label">SaaS</span>
         </p>
-        <p>URL: <a href="{{company.url}}" target="_blank">{{ company.url }}</a></p>
+        <p>URL: <a href="www.heroku.com" target="_blank">www.heroku.com</a></p>
         <p>{{ company.desc }}</p>
-        <p><img src="http://www.crunchbase.com/{{ company.img }}" height="50" width="100" /><p>
+        <!-- <p><img src="http://www.crunchbase.com/{{ company.img }}" height="50" width="100" /><p> -->
+<!--         <p><img src="http://www.crunchbase.com/company/heroku" height="50" width="100" /><p> -->
+        <p><img src="{{ url_for('static', filename='img/heroku.jpg' )}}" height="50" width="100" /><p>
         {% if company.tags %}
             <ul>
             {% for tag in company.tags.split(",") %}
